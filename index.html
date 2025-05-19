@@ -107,8 +107,14 @@
     <div id="output" class="result" style="display:none;"></div>
     <div id="nota" class="nota" style="display:none;"></div>
 </div>
-
+<!-- Pastikan script Supabase.js ada di atas script ini -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+    // Ganti dengan milikmu
+    const SUPABASE_URL = https://aevewznlfrjdhkumtvcc.supabase.co;
+    const SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFldmV3em5sZnJqZGhrdW10dmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTU2NDIsImV4cCI6MjA2MzIzMTY0Mn0.I6q8oD3jlroy_AsB606Haf05XQRfuXf9_e8V4ZrzhIo;
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     const form = document.getElementById('konselingForm');
     const output = document.getElementById('output');
     const nota = document.getElementById('nota');
@@ -130,7 +136,7 @@
         }
     });
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const nama = document.getElementById('nama').value;
@@ -140,6 +146,24 @@
         const tanggal = document.getElementById('tanggal').value;
         const durasi = durasiInput.value;
         const biaya = biayaInput.value;
+
+        // Kirim data ke Supabase
+        const { data, error } = await supabase
+            .from('konseling')
+            .insert([{ 
+                nama, 
+                alamat, 
+                layanan, 
+                konselor, 
+                tanggal, 
+                durasi: Number(durasi), 
+                biaya: Number(biaya) 
+            }]);
+
+        if (error) {
+            alert("❌ Data GAGAL disimpan: " + error.message);
+            return;
+        }
 
         output.style.display = 'block';
         nota.style.display = 'block';
