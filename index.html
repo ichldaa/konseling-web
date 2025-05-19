@@ -1,171 +1,250 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Konseling Praktik Konseling Care</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #f3e8ff;
-            margin: 0;
-            padding: 0;
-            color: #4a148c;
-        }header {
-        background-color: #ce93d8;
-        padding: 20px;
-        text-align: center;
-        color: white;
-        border-bottom: 5px solid #ba68c8;
+  <meta charset="UTF-8">
+  <title>Praktik Konseling Care</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f2e9fa;
+      font-family: 'Fredoka One', Arial, sans-serif;
+      margin: 0; padding: 0;
     }
-
-    .container {
-        padding: 20px;
+    header {
+      background: #c89bdf;
+      color: #fff;
+      padding: 28px 0 8px 0;
+      text-align: center;
+      border-bottom: 4px solid #b280d1;
     }
-
-    .form-group {
-        margin-bottom: 15px;
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
     }
-
+    header p {
+      font-size: 0.96rem;
+      margin-top: 0;
+      color: #faf6fc;
+    }
+    main {
+      padding: 24px;
+      max-width: 540px;
+      margin: auto;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
     label {
-        display: block;
-        font-weight: bold;
+      color: #653b94;
+      font-weight: bold;
+      margin-bottom: 2px;
+      font-size: 1rem;
     }
-
-    input, select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 8px;
-        border: 1px solid #ba68c8;
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #c9b5e6;
+      font-size: 1rem;
+      margin-bottom: 0;
+      background: #f6edfa;
+      font-family: inherit;
+      box-sizing: border-box;
     }
-
     button {
-        background-color: #ba68c8;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 1em;
+      background: #c89bdf;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: none;
+      margin-top: 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+      width: 100%;
     }
-
-    .result, .nota {
-        background-color: white;
-        border: 2px dashed #ba68c8;
-        padding: 20px;
-        margin-top: 20px;
-        border-radius: 20px;
-        box-shadow: 0 5px 15px rgba(186, 104, 200, 0.2);
+    button:hover {
+      background: #a47bc4;
     }
-</style>
-
+    .output-section {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .card {
+      background: #f9f2fd;
+      border: 2px dashed #b58ed6;
+      border-radius: 18px;
+      padding: 22px 32px 22px 22px;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px 0 rgba(187,148,217,0.09);
+      color: #3d2471;
+    }
+    .card h2 {
+      color: #54279a;
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    .bold { font-weight: bold; }
+    @media (max-width: 700px) {
+      main { padding: 8px; }
+      .card { padding: 14px 10px 14px 14px; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Praktik Konseling Care</h1>
-        <p>Formulir Konseling & Nota Digital</p>
-    </header><div class="container">
-    <form id="konselingForm">
-        <div class="form-group">
-            <label>Nama Pasien:</label>
-            <input type="text" id="nama" required>
-        </div>
-        <div class="form-group">
-            <label>Alamat:</label>
-            <input type="text" id="alamat" required>
-        </div>
-        <div class="form-group">
-            <label>Jenis Layanan:</label>
-            <select id="layanan" required>
-                <option value="">-- Pilih Jenis Layanan --</option>
-                <option value="Konseling Pribadi">Konseling Pribadi</option>
-                <option value="Konseling Akademik">Konseling Akademik</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Konselor:</label>
-            <select id="konselor" required>
-                <option value="">-- Pilih Konselor --</option>
-                <option value="dr. Imah, M.Psi">dr. Imah, M.Psi</option>
-                <option value="dr. Herlina, M.Psi">dr. Herlina, M.Psi</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Tanggal & Jam Konseling:</label>
-            <input type="datetime-local" id="tanggal" required>
-        </div>
-        <div class="form-group">
-            <label>Durasi (menit):</label>
-            <input type="number" id="durasi" readonly>
-        </div>
-        <div class="form-group">
-            <label>Biaya (Rp):</label>
-            <input type="number" id="biaya" readonly>
-        </div>
-        <button type="submit">Kirim & Tampilkan Nota</button>
+  <header>
+    <h1>Praktik Konseling Care</h1>
+    <p>Formulir Konseling & Nota Digital</p>
+  </header>
+  <main>
+    <form id="konselingForm" autocomplete="off">
+      <div>
+        <label for="nama">Nama Pasien:</label>
+        <input type="text" id="nama" name="nama" required>
+      </div>
+      <div>
+        <label for="alamat">Alamat:</label>
+        <input type="text" id="alamat" name="alamat" required>
+      </div>
+      <div>
+        <label for="layanan">Jenis Layanan:</label>
+        <select id="layanan" name="layanan" required>
+          <option value="">--Pilih Layanan--</option>
+          <option value="Konseling Pribadi">Konseling Pribadi</option>
+          <option value="Konseling Akademik">Konseling Akademik</option>
+          <option value="Konseling Keluarga">Konseling Keluarga</option>
+        </select>
+      </div>
+      <div>
+        <label for="konselor">Konselor:</label>
+        <select id="konselor" name="konselor" required>
+          <option value="">--Pilih Konselor--</option>
+          <option value="dr. Imah, M.Psi">dr. Imah, M.Psi</option>
+          <option value="dr. Ana, Psikolog">dr. Ana, Psikolog</option>
+          <option value="dr. Rizal, M.Psi">dr. Rizal, M.Psi</option>
+        </select>
+      </div>
+      <div>
+        <label for="waktu">Tanggal & Jam Konseling:</label>
+        <input type="datetime-local" id="waktu" name="waktu" required>
+      </div>
+      <div>
+        <label for="durasi">Durasi (menit):</label>
+        <input type="number" id="durasi" name="durasi" required readonly>
+      </div>
+      <div>
+        <label for="biaya">Biaya (Rp):</label>
+        <input type="text" id="biaya" name="biaya" required readonly>
+      </div>
+      <button type="submit">Kirim & Tampilkan Nota</button>
     </form>
 
-    <div id="output" class="result" style="display:none;"></div>
-    <div id="nota" class="nota" style="display:none;"></div>
-</div>
+    <div class="output-section" id="outputSection" style="display:none;">
+      <div class="card" id="dataKonselingCard"></div>
+      <div class="card" id="notaDigitalCard"></div>
+    </div>
+  </main>
+  <script>
+    // ------ ISI KONFIGURASI SUPABASE DI SINI ------
+    const SUPABASE_URL = 'https://aevewznlfrjdhkumtvcc.supabase.co';
+    const SUPABASE_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFldmV3em5sZnJqZGhrdW10dmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTU2NDIsImV4cCI6MjA2MzIzMTY0Mn0.I6q8oD3jlroy_AsB606Haf05XQRfuXf9_e8V4ZrzhIo';
+    const SUPABASE_TABLE = 'konseling-care'; // Ganti sesuai nama tabel
 
-<script>
-    const form = document.getElementById('konselingForm');
-    const output = document.getElementById('output');
-    const nota = document.getElementById('nota');
-    const layananSelect = document.getElementById('layanan');
-    const durasiInput = document.getElementById('durasi');
-    const biayaInput = document.getElementById('biaya');
+    // --- FORMAT CURRENCY
+  function formatRupiah(number){
+    if (!number) return "Rp 0";
+    let num = (typeof number === "number") ? number : (""+number).replace(/[^0-9]/g,"");
+    return 'Rp ' + Number(num).toLocaleString('id-ID');
+  }
 
-    layananSelect.addEventListener('change', function() {
-        const layanan = this.value;
-        if (layanan === 'Konseling Pribadi') {
-            durasiInput.value = 60;
-            biayaInput.value = 750000;
-        } else if (layanan === 'Konseling Akademik') {
-            durasiInput.value = 45;
-            biayaInput.value = 1200000;
-        } else {
-            durasiInput.value = '';
-            biayaInput.value = '';
-        }
-    });
+  // --- FORMAT TANGGAL
+  function formatTanggal(dateString) {
+    if (!dateString) return '';
+    let d = new Date(dateString);
+    let tanggal = d.toLocaleDateString('id-ID');
+    let jam = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    return `${tanggal}, ${jam}`;
+  }
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+  // --- HANDLER SUBMIT FORM
+  document.getElementById('konselingForm').onsubmit = async function(e){
+    e.preventDefault();
 
-        const nama = document.getElementById('nama').value;
-        const alamat = document.getElementById('alamat').value;
-        const layanan = layananSelect.value;
-        const konselor = document.getElementById('konselor').value;
-        const tanggal = document.getElementById('tanggal').value;
-        const durasi = durasiInput.value;
-        const biaya = biayaInput.value;
+    // Get all values
+    const nama = document.getElementById('nama').value.trim();
+    const alamat = document.getElementById('alamat').value.trim();
+    const layanan = document.getElementById('layanan').value;
+    const konselor = document.getElementById('konselor').value;
+    const waktu = document.getElementById('waktu').value;
+    const durasi = document.getElementById('durasi').value;
+    let biaya = document.getElementById('biaya').value.replace(/[^0-9]/g, '');
 
-        output.style.display = 'block';
-        nota.style.display = 'block';
+    // Show output section
+    document.getElementById('outputSection').style.display = 'flex';
 
-        output.innerHTML = `
-            <h2>Data Konseling</h2>
-            <p><strong>Nama:</strong> ${nama}</p>
-            <p><strong>Alamat:</strong> ${alamat}</p>
-            <p><strong>Jenis Layanan:</strong> ${layanan}</p>
-            <p><strong>Konselor:</strong> ${konselor}</p>
-            <p><strong>Waktu Konseling:</strong> ${new Date(tanggal).toLocaleString('id-ID')}</p>
-            <p><strong>Durasi:</strong> ${durasi} menit</p>
-            <p><strong>Biaya:</strong> Rp${parseInt(biaya).toLocaleString('id-ID')}</p>
-        `;
+    // --- RENDER "DATA KONSELING"
+    document.getElementById('dataKonselingCard').innerHTML = `
+      <h2>Data Konseling</h2>
+      <div><span class="bold">Nama:</span> ${nama}</div>
+      <div><span class="bold">Alamat:</span> ${alamat}</div>
+      <div><span class="bold">Jenis Layanan:</span> ${layanan}</div>
+      <div><span class="bold">Konselor:</span> ${konselor}</div>
+      <div><span class="bold">Waktu Konseling:</span> ${formatTanggal(waktu)}</div>
+      <div><span class="bold">Durasi:</span> ${durasi} menit</div>
+      <div><span class="bold">Biaya:</span> ${formatRupiah(biaya)}</div>
+    `;
 
-        nota.innerHTML = `
-            <h2>Nota Digital</h2>
-            <p>Telah diterima pembayaran dari <strong>${nama}</strong></p>
-            <p>Untuk layanan <strong>${layanan}</strong> yang ditangani oleh <strong>${konselor}</strong></p>
-            <p>Tanggal & Waktu: ${new Date(tanggal).toLocaleString('id-ID')}</p>
-            <p>Durasi: ${durasi} menit</p>
-            <p><strong>Total Biaya: Rp${parseInt(biaya).toLocaleString('id-ID')}</strong></p>
-            <p>Terima kasih telah menggunakan layanan kami!</p>
-        `;
-    });
+    // --- RENDER "NOTA DIGITAL"
+    document.getElementById('notaDigitalCard').innerHTML = `
+      <h2>Nota Digital</h2>
+      <div>Telah diterima pembayaran dari <span class="bold">${nama}</span></div>
+      <div>Untuk layanan <span class="bold">${layanan}</span> yang ditangani oleh <span class="bold">${konselor}</span></div>
+      <div>Tanggal & Waktu: ${formatTanggal(waktu)}</div>
+      <div>Durasi: ${durasi} menit</div>
+      <div class="bold">Total Biaya: ${formatRupiah(biaya)}</div>
+      <div style="margin-top:8px;">Terima kasih telah menggunakan layanan kami!</div>
+    `;
+
+    // --- KIRIM KE SUPABASE (opsional, tetap sama)
+    if(SUPABASE_URL.startsWith('https://') && SUPABASE_API_KEY.startsWith('ey') && SUPABASE_TABLE){
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_API_KEY,
+            'Authorization': `Bearer ${SUPABASE_API_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify({
+            nama, alamat, layanan, konselor, waktu, durasi: +durasi, biaya: +biaya
+          })
+        });
+      } catch(err){
+        alert('Gagal menyimpan ke database. Periksa koneksi Supabase.');
+      }
+    }
+  };
+
+  // --- AUTOSET DURASI & BIAYA SESUAI LAYANAN
+  document.getElementById('layanan').addEventListener('change', function(){
+    let durasi = '', biaya = '';
+    if(this.value === 'Konseling Pribadi'){ durasi = 60; biaya = 750000; }
+    else if(this.value === 'Konseling Akademik'){ durasi = 45; biaya = 1200000; }
+    else if(this.value === 'Konseling Keluarga'){ durasi = 75; biaya = 1300000; }
+    document.getElementById('durasi').value = durasi;
+    document.getElementById('biaya').value = biaya ? formatRupiah(biaya) : '';
+  });
 </script>
-
 </body>
 </html>
