@@ -109,12 +109,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Ganti dengan data dari dashboard Supabase-mu
-const SUPABASE_URL = "https://aevewznlfrjdhkumtvcc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFldmV3em5sZnJqZGhrdW10dmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTU2NDIsImV4cCI6MjA2MzIzMTY0Mn0.I6q8oD3jlroy_AsB606Haf05XQRfuXf9_e8V4ZrzhIo";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-
+document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('konselingForm');
   const output = document.getElementById('output');
   const nota = document.getElementById('nota');
@@ -124,74 +119,79 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   // Otomatis set durasi dan biaya saat jenis layanan dipilih
   layananSelect.addEventListener('change', function() {
-      const layanan = this.value;
-      if (layanan === 'Konseling Pribadi') {
-          durasiInput.value = 60;
-          biayaInput.value = 750000;
-      } else if (layanan === 'Konseling Akademik') {
-          durasiInput.value = 45;
-          biayaInput.value = 1200000;
-      } else {
-          durasiInput.value = '';
-          biayaInput.value = '';
-      }
+    const layanan = this.value;
+    if (layanan === 'Konseling Pribadi') {
+      durasiInput.value = 60;
+      biayaInput.value = 750000;
+    } else if (layanan === 'Konseling Akademik') {
+      durasiInput.value = 45;
+      biayaInput.value = 1200000;
+    } else {
+      durasiInput.value = '';
+      biayaInput.value = '';
+    }
   });
 
+  // Ganti dengan data dari dashboard Supabase-mu
+  const SUPABASE_URL = "https://aevewznlfrjdhkumtvcc.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFldmV3em5sZnJqZGhrdW10dmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTU2NDIsImV4cCI6MjA2MzIzMTY0Mn0.I6q8oD3jlroy_AsB606Haf05XQRfuXf9_e8V4ZrzhIo";
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
   form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      const nama = document.getElementById('nama').value;
-      const alamat = document.getElementById('alamat').value;
-      const layanan = layananSelect.value;
-      const konselor = document.getElementById('konselor').value;
-      const tanggal = document.getElementById('tanggal').value;
-      const durasi = durasiInput.value;
-      const biaya = biayaInput.value;
+    const nama = document.getElementById('nama').value;
+    const alamat = document.getElementById('alamat').value;
+    const layanan = layananSelect.value;
+    const konselor = document.getElementById('konselor').value;
+    const tanggal = document.getElementById('tanggal').value;
+    const durasi = durasiInput.value;
+    const biaya = biayaInput.value;
 
-      // Kirim data ke Supabase
-      const { data, error } = await supabase
-        .from('konseling')
-        .insert([{ 
-          nama, 
-          alamat, 
-          layanan, 
-          konselor, 
-          tanggal, 
-          durasi: Number(durasi), 
-          biaya: Number(biaya) 
-        }]);
+    // Kirim data ke Supabase
+    const { data, error } = await supabase
+      .from('konseling')
+      .insert([{ 
+        nama, 
+        alamat, 
+        layanan, 
+        konselor, 
+        tanggal, 
+        durasi: Number(durasi), 
+        biaya: Number(biaya) 
+      }]);
 
-      if (error) {
-        alert("Gagal menyimpan data: " + error.message);
-        return;
-      }
+    if (error) {
+      alert("Gagal menyimpan data: " + error.message);
+      return;
+    }
 
-      // Tampilkan output dan nota seperti sebelumnya
-      output.style.display = 'block';
-      nota.style.display = 'block';
+    // Tampilkan output dan nota seperti sebelumnya
+    output.style.display = 'block';
+    nota.style.display = 'block';
 
-      output.innerHTML = `
-          <h2>Data Konseling</h2>
-          <p><strong>Nama:</strong> ${nama}</p>
-          <p><strong>Alamat:</strong> ${alamat}</p>
-          <p><strong>Jenis Layanan:</strong> ${layanan}</p>
-          <p><strong>Konselor:</strong> ${konselor}</p>
-          <p><strong>Waktu Konseling:</strong> ${new Date(tanggal).toLocaleString('id-ID')}</p>
-          <p><strong>Durasi:</strong> ${durasi} menit</p>
-          <p><strong>Biaya:</strong> Rp${parseInt(biaya).toLocaleString('id-ID')}</p>
-      `;
+    output.innerHTML = `
+      <h2>Data Konseling</h2>
+      <p><strong>Nama:</strong> ${nama}</p>
+      <p><strong>Alamat:</strong> ${alamat}</p>
+      <p><strong>Jenis Layanan:</strong> ${layanan}</p>
+      <p><strong>Konselor:</strong> ${konselor}</p>
+      <p><strong>Waktu Konseling:</strong> ${new Date(tanggal).toLocaleString('id-ID')}</p>
+      <p><strong>Durasi:</strong> ${durasi} menit</p>
+      <p><strong>Biaya:</strong> Rp${parseInt(biaya).toLocaleString('id-ID')}</p>
+    `;
 
-      nota.innerHTML = `
-          <h2>Nota Digital</h2>
-          <p>Telah diterima pembayaran dari <strong>${nama}</strong></p>
-          <p>Untuk layanan <strong>${layanan}</strong> yang ditangani oleh <strong>${konselor}</strong></p>
-          <p>Tanggal & Waktu: ${new Date(tanggal).toLocaleString('id-ID')}</p>
-          <p>Durasi: ${durasi} menit</p>
-          <p><strong>Total Biaya: Rp${parseInt(biaya).toLocaleString('id-ID')}</strong></p>
-          <p>Terima kasih telah menggunakan layanan kami!</p>
-      `;
-  });
-
+    nota.innerHTML = `
+      <h2>Nota Digital</h2>
+      <p>Telah diterima pembayaran dari <strong>${nama}</strong></p>
+      <p>Untuk layanan <strong>${layanan}</strong> yang ditangani oleh <strong>${konselor}</strong></p>
+      <p>Tanggal & Waktu: ${new Date(tanggal).toLocaleString('id-ID')}</p>
+      <p>Durasi: ${durasi} menit</p>
+      <p><strong>Total Biaya: Rp${parseInt(biaya).toLocaleString('id-ID')}</strong></p>
+      <p>Terima kasih telah menggunakan layanan kami!</p>
+    `;
+  });
+});
 </script>
 
 </body>
