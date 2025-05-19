@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
+    // Ambil data form
     const nama = document.getElementById('nama').value;
     const alamat = document.getElementById('alamat').value;
     const layanan = layananSelect.value;
@@ -147,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const tanggal = document.getElementById('tanggal').value;
     const durasi = durasiInput.value;
     const biaya = biayaInput.value;
+
+    // Sembunyikan preview dulu
+    output.style.display = 'none';
+    nota.style.display = 'none';
 
     // Kirim data ke Supabase
     const { data, error } = await supabase
@@ -162,11 +167,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }]);
 
     if (error) {
-      alert("Gagal menyimpan data: " + error.message);
+      alert("❌ Data GAGAL disimpan: " + error.message);
       return;
     }
 
-    // Tampilkan output dan nota seperti sebelumnya
+    // Tampilkan notifikasi sukses
+    alert("✅ Data berhasil disimpan!");
+
+    // Tampilkan output dan nota di halaman
     output.style.display = 'block';
     nota.style.display = 'block';
 
@@ -190,6 +198,11 @@ document.addEventListener('DOMContentLoaded', function() {
       <p><strong>Total Biaya: Rp${parseInt(biaya).toLocaleString('id-ID')}</strong></p>
       <p>Terima kasih telah menggunakan layanan kami!</p>
     `;
+
+    // (Optional) Reset form jika ingin
+    // form.reset();
+    // durasiInput.value = '';
+    // biayaInput.value = '';
   });
 });
 </script>
