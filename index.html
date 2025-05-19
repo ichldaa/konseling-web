@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Konseling Praktik Konseling Care</title>
     <style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         body {
             font-family: 'Comic Sans MS', cursive, sans-serif;
             background-color: #f3e8ff;
@@ -109,26 +110,36 @@
 </div>
 
 <script>
-    const form = document.getElementById('konselingForm');
-    const output = document.getElementById('output');
-    const nota = document.getElementById('nota');
-    const layananSelect = document.getElementById('layanan');
-    const durasiInput = document.getElementById('durasi');
-    const biayaInput = document.getElementById('biaya');
+    // Ganti dengan data dari dashboard Supabase-mu
+const SUPABASE_URL = "https://aevewznlfrjdhkumtvcc.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFldmV3em5sZnJqZGhrdW10dmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTU2NDIsImV4cCI6MjA2MzIzMTY0Mn0.I6q8oD3jlroy_AsB606Haf05XQRfuXf9_e8V4ZrzhIo";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    layananSelect.addEventListener('change', function() {
-        const layanan = this.value;
-        if (layanan === 'Konseling Pribadi') {
-            durasiInput.value = 60;
-            biayaInput.value = 750000;
-        } else if (layanan === 'Konseling Akademik') {
-            durasiInput.value = 45;
-            biayaInput.value = 1200000;
-        } else {
-            durasiInput.value = '';
-            biayaInput.value = '';
-        }
-    });
+const form = document.getElementById('konselingForm');
+const layananSelect = document.getElementById('layanan');
+const durasiInput = document.getElementById('durasi');
+const biayaInput = document.getElementById('biaya');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const nama = document.getElementById('nama').value;
+  const alamat = document.getElementById('alamat').value;
+  const layanan = layananSelect.value;
+  const konselor = document.getElementById('konselor').value;
+  const tanggal = document.getElementById('tanggal').value;
+  const durasi = durasiInput.value;
+  const biaya = biayaInput.value;
+    const { data, error } = await supabase
+    .from('konseling')
+    .insert([{ nama, alamat, layanan, konselor, tanggal, durasi: Number(durasi), biaya: Number(biaya) }]);
+
+  if (error) {
+    alert("Gagal menyimpan data: " + error.message);
+  } else {
+    alert("Data berhasil disimpan ke database!");
+  }
+});
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
